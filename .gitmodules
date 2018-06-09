@@ -1,0 +1,3 @@
+[submodule "AngularClient"]
+	path = AngularClient
+	url = https://github.com/dangavrila/AngularClient.git
