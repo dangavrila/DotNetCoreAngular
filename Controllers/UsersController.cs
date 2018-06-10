@@ -12,16 +12,19 @@ namespace myFirstAngular.Controllers
     {
         private readonly IUserRepository _userRepository;
 
-        public UsersController()
+        public UsersController(IUserRepository userRepository)
         {
-            _userRepository = new UsersRepository();
+            _userRepository = userRepository;
         }
 
         [HttpGet("")]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] int page = 0, int rows = 10)
         {
-            var result = _userRepository.GetUsers();
-            return Ok(result);
+            var users = _userRepository.GetUsers(page, rows);
+            return Ok(new UsersViewModel() {
+                Data = users,
+                Total = _userRepository.GetUsersCount()
+            });
         }
 
         [HttpGet("/{id}")]

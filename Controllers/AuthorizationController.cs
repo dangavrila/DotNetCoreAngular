@@ -11,17 +11,17 @@ namespace myFirstAngular.Controllers
     [Route("login")]
     public class AuthorizationController: Controller
     {
-        IUserRepository userRepository;
+        IUserRepository _userRepository;
 
-        public AuthorizationController()
+        public AuthorizationController(IUserRepository userRepository)
         {
-            userRepository = new UsersRepository();
+            _userRepository = userRepository;
         }
 
         [HttpPost("")]
         public IActionResult PostLogin([FromBody] Credentials credentials)
         {
-            var result = userRepository.GetUsers()
+            var result = _userRepository.GetUsers(0, _userRepository.GetUsersCount())
                 .Where(u => u.Username == credentials.Username && u.Password == credentials.Password).FirstOrDefault();
 
             return Ok(result);

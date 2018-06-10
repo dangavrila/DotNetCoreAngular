@@ -4,7 +4,12 @@ namespace myFirstAngular.Models
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetUsers();
+        IEnumerable<User> GetUsers(int page, int rows);
+
         User GetUserById(int userId);
+
+        void AddUser(User user);
+
+        int GetUsersCount();
     }
 }

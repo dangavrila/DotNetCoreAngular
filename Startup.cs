@@ -26,12 +26,14 @@ namespace myFirstAngular
                 options.AddPolicy("AllowLocalhost",
                     builder => builder
                     .WithOrigins("*")
-                    .WithMethods("POST")
+                    .WithMethods(new string[] { "POST", "GET", "PUT", "OPTIONS", "DELETE" })
                     .WithHeaders(new string[] { "authorization", "content-type" })
                 );
             });
 
             services.AddMvc();
+
+            services.AddScoped<IUserRepository, UsersRepository>();
 
             services.Configure<MvcOptions>(options =>
             {

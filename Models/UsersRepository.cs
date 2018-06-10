@@ -23,9 +23,21 @@ namespace myFirstAngular.Models
                 .FirstOrDefault();
         }
 
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<User> GetUsers(int page, int rows)
         {
-            return _usersDataList;
+            return _usersDataList.Skip(page * rows).Take(rows);
+        }
+
+        public void AddUser(User user)
+        {
+            user.Id = _usersDataList.Max(u => u.Id) + 1;
+
+            _usersDataList.Add(user);
+        }
+
+        public int GetUsersCount()
+        {
+            return _usersDataList.Count;
         }
 
         private void GenerateUsersData()
