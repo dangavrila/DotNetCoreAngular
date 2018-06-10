@@ -33,7 +33,7 @@ namespace myFirstAngular
 
             services.AddMvc();
 
-            services.AddScoped<IUserRepository, UsersRepository>();
+            services.AddSingleton<IUserRepository, UsersRepository>();
 
             services.Configure<MvcOptions>(options =>
             {

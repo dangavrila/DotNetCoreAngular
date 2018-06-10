@@ -10,6 +10,8 @@ namespace myFirstAngular.Models
 
         void AddUser(User user);
 
+        void UpdateUser(User userEdit);
+
         int GetUsersCount();
     }
 }

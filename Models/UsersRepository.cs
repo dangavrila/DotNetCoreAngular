@@ -35,6 +35,16 @@ namespace myFirstAngular.Models
             _usersDataList.Add(user);
         }
 
+        public void UpdateUser(User userEdit)
+        {
+            var existingUser = _usersDataList.ElementAt(userEdit.Id - 1);
+            if(existingUser != null)
+            {
+                existingUser.FirstName = userEdit.FirstName;
+                existingUser.LastName = userEdit.LastName;
+            }
+        }
+
         public int GetUsersCount()
         {
             return _usersDataList.Count;

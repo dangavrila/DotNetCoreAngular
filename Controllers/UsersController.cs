@@ -33,5 +33,48 @@ namespace myFirstAngular.Controllers
             var result = _userRepository.GetUserById(userId);
             return Ok(result);
         }
+
+        [HttpPost("")]
+        public IActionResult Post([FromBody] User newUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = _userRepository.GetUsers(0, _userRepository.GetUsersCount())
+                    .Where(user => user.FirstName == newUser.FirstName && user.LastName == newUser.LastName)
+                    .FirstOrDefault();
+
+                if (existingUser != null)
+                {
+                    return new ForbidResult();
+                }
+                else
+                {
+                    _userRepository.AddUser(newUser);
+                    return Created("/user", newUser);
+                }
+            }
+            else return BadRequest();
+        }
+
+        [HttpPut("")]
+        [Route("/user/{id:int}")]
+        public IActionResult Put([FromBody] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                int userId = 0;
+                int.TryParse((string)RouteData.Values["id"], out userId);
+                var existingUser = _userRepository.GetUserById(userId);
+                if (existingUser != null)
+                {
+                    user.Id = userId;
+                    _userRepository.UpdateUser(user);
+                    return Created($"/user/{userId}", user);
+                }
+                else return NotFound(user);
+            }
+            else return BadRequest();
+        }
+
     }
 }
