@@ -76,5 +76,17 @@ namespace myFirstAngular.Controllers
             else return BadRequest();
         }
 
+        [HttpDelete("")]
+        public IActionResult Delete([FromQuery] int id)
+        {
+            var existingUser = _userRepository.GetUserById(id);
+            if (existingUser != null)
+            {
+                _userRepository.DeleteUser(id);
+                return Ok();
+            }
+            else return NotFound(id);
+        }
+
     }
 }

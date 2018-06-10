@@ -12,6 +12,8 @@ namespace myFirstAngular.Models
 
         void UpdateUser(User userEdit);
 
+        void DeleteUser(int id);
+
         int GetUsersCount();
     }
 }

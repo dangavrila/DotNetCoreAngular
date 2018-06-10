@@ -45,6 +45,15 @@ namespace myFirstAngular.Models
             }
         }
 
+        public void DeleteUser(int id)
+        {
+            var user = _usersDataList
+                .Where(u => u.Id == id)
+                .First();
+
+            _usersDataList.Remove(user);
+        }
+
         public int GetUsersCount()
         {
             return _usersDataList.Count;
